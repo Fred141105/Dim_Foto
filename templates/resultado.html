@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Dimensionamento</title>
+    <!-- Referência para o CSS específico da página de resultados -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resultado.css') }}">
+</head>
+<body>
+    <div class="container-principal">
+
+        <!-- Bloco 3: Número de Módulos -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">3. Número de Módulos (n_mod)</h2>
+            <p class="unidade-texto">Unidade: <strong>Quantidade (unidades inteiras)</strong></p>
+            <p class="descricao-secao">Quantidade de painéis solares para atender à potência necessária.</p>
+
+            <div class="bloco-resultado-destaque">
+                <span class="valor-destaque">{{ n_mod }}</span>
+                <span class="rotulo-destaque">módulos solares</span>
+            </div>
+        </div>
+
+        <!-- Bloco 4: Potência Real e Excedente -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">4. Potência Real e Excedente</h2>
+            <p class="unidade-texto">Unidade: <strong>Wp / % Cobertura</strong></p>
+            <p class="descricao-secao">Potência instalada final e porcentagem de cobertura da demanda.</p>
+
+            <div class="bloco-resultados-duplos">
+                <div class="item-resultado">
+                    <span class="rotulo-secundario">Potência Real Instalada</span>
+                    <span class="valor-secundario blue">{{ pfv_real }} Wp</span>
+                </div>
+                <div class="item-resultado">
+                    <span class="rotulo-secundario">Cobertura da Demanda</span>
+                    <span class="valor-secundario orange">{{ porcentagem_potencia }}%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloco de Ações / Navegação -->
+        <div class="container-botoes">
+            <a href="{{ url_for('inversor_pagina') }}" class="btn-acao btn-inversor">Dimensionamento do Inversor</a>
+            <a href="/" class="btn-acao btn-voltar">Realizar Novo Dimensionamento</a>
+        </div>
+
+    </div>
+</body>
+</html>

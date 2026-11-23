@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Usuário - Dimensionamento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/usuario.css') }}">
+</head>
+<body>
+
+<div class="container-principal">
+
+    <form action="/calcular" method="POST" class="form-dimensionamento">
+
+        <!-- 1. Consumo Médio Energético -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">1. Consumo Médio Energético (E)</h2>
+            <p class="unidade-texto">Unidade: <strong>kWh/mês</strong></p>
+            <p class="descricao-secao">Media de consumo mensal de energia eletrica obtida da fatura do cliente.</p>
+            <h3 class="subtitulo-secao">Entrada de dados do cliente (historico mensal)</h3>
+
+            <div class="grid-meses">
+                <div class="campo-mes">
+                    <label for="mes_jan">Jan</label>
+                    <input type="number" id="mes_jan" name="mes_jan" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_fev">Fev</label>
+                    <input type="number" id="mes_fev" name="mes_fev" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_mar">Mar</label>
+                    <input type="number" id="mes_mar" name="mes_mar" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_abr">Abr</label>
+                    <input type="number" id="mes_abr" name="mes_abr" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_mai">Mai</label>
+                    <input type="number" id="mes_mai" name="mes_mai" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_jun">Jun</label>
+                    <input type="number" id="mes_jun" name="mes_jun" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_jul">Jul</label>
+                    <input type="number" id="mes_jul" name="mes_jul" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_ago">Ago</label>
+                    <input type="number" id="mes_ago" name="mes_ago" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_set">Set</label>
+                    <input type="number" id="mes_set" name="mes_set" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_out">Out</label>
+                    <input type="number" id="mes_out" name="mes_out" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_nov">Nov</label>
+                    <input type="number" id="mes_nov" name="mes_nov" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+                <div class="campo-mes">
+                    <label for="mes_dez">Dez</label>
+                    <input type="number" id="mes_dez" name="mes_dez" step="0.01" min="0" placeholder="0" required>
+                    <span class="sufixo">kWh</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Irradiação Global Diária -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">2. Irradiação Global Diária (Htot) / HSP</h2>
+            <p class="unidade-texto">Unidade: <strong>kWh/m²/dia (ou h/dia)</strong></p>
+            <p class="descricao-secao">Média diária anual de irradiação solar global incidente no plano dos módulos.</p>
+
+            <div class="campo-unico-irradiacao">
+                <label for="htot_anual">IRRADIAÇÃO MÉDIA ANUAL</label>
+                <div class="wrapper-input">
+                    <input type="number" id="htot_anual" name="htot_anual" step="0.01" min="0" placeholder="Ex: 5.3" required>
+                    <span class="sufixo">kWh/m²</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Seleção do Modelo de Painel Solar -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">3. Modelo do Painel Solar</h2>
+            <p class="unidade-texto">Tecnologia: <strong>Monocristalino de Alta Eficiência</strong></p>
+            <p class="descricao-secao">Selecione o painel fotovoltaico que deseja utilizar no projeto.</p>
+
+            <div class="campo-unico-irradiacao">
+                <label for="modelo_painel">Selecionar Módulo</label>
+                <div class="wrapper-input">
+                    <select id="modelo_painel" name="modelo_painel" class="select-painel">
+                        <option value="canadian_550">Painel Solar 550W Monocristalino Half-Cell Canadian (CS6W-550MS) - R$ 600,00/un</option>
+                        <option value="maxeon_410">Painel Solar 410W Maxeon 3 Full Black Contato Traseiro (SPR-MAX3-410) - R$ 500,00/un</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-calcular">Realizar Dimensionamento</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

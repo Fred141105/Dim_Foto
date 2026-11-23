@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dimensionamento do Inversor</title>
+    <!-- Referência para o CSS específico da página do inversor -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inversor.css') }}">
+</head>
+<body>
+    <div class="container-principal">
+
+        <!-- Título da Página -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">Dimensionamento do Inversor Fotovoltaico</h2>
+            <p class="descricao-secao">Informe os parâmetros para calcular a potência ideal do inversor e selecionar o modelo comercial adequado.</p>
+
+            <!-- Formulário para envio de dados ao Flask -->
+            <form action="/calcular-inversor" method="POST" class="formulario-inversor">
+                
+                <div class="campo-grupo">
+                    <label for="fator_cc_ca">Fator de Sobredimensionamento (Relação CC/CA)</label>
+                    <div class="wrapper-input">
+                        <input type="number" id="fator_cc_ca" name="fator_cc_ca" step="0.01" min="1.0" max="1.5" value="1.20" required>
+                        <span class="sufixo">ex: 1.2</span>
+                    </div>
+                    <p class="dica-campo">Recomendado entre 1.10 e 1.30 para otimizar a geração.</p>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="tipo_rede">Tipo de Instalação / Rede</label>
+                    <div class="wrapper-input">
+                        <select id="tipo_rede" name="tipo_rede" class="select-personalizado" required>
+                            <option value="monofasico" style="background-color: #111723; color: #fff;">Monofásico (220V)</option>
+                            <option value="bifasico" style="background-color: #111723; color: #fff;">Bifásico (220V/380V)</option>
+                            <option value="trifasico" style="background-color: #111723; color: #fff;" selected>Trifásico (220V/380V)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="container-botoes">
+                    <button type="submit" class="btn-acao btn-calcular">Calcular Inversor</button>
+                    <a href="{{ url_for('calcular') }}" class="btn-acao btn-voltar">Voltar aos Resultados</a>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

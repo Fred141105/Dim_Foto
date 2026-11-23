@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Financeira e Payback</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financia.css') }}">
+</head>
+<body>
+    <div class="container-principal">
+        <form action="/calcular-financia" method="POST" class="form-dimensionamento">
+
+            <!-- 1. Investimento Inicial (CAPEX) -->
+            <div class="card-secao">
+                <h2 class="titulo-secao">1. Investimento Inicial Total (CAPEX)</h2>
+                <p class="unidade-texto">Unidade: <strong>Reais (R$)</strong></p>
+                <p class="descricao-secao">Valor calculado automaticamente somando módulos fotovoltaicos, inversor recomendado, estruturas de fixação e mão de obra.</p>
+
+                <div class="campo-unico">
+                    <label for="investimento">INVESTIMENTO TOTAL ESTIMADO</label>
+                    <div class="wrapper-input">
+                        <input type="text" id="investimento" name="investimento" 
+                               value="{{ '%.2f'|format(investimento_automatico)|replace('.', ',') if investimento_automatico else '10000,00' }}" 
+                               required>
+                        <span class="sufixo">R$</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Média Mensal da Conta de Luz -->
+            <div class="card-secao">
+                <h2 class="titulo-secao">2. Média Mensal da Conta de Luz</h2>
+                <p class="unidade-texto">Unidade: <strong>Reais por Mês (R$/mês)</strong></p>
+                <p class="descricao-secao">Informe quanto o cliente paga em média por mês na fatura de energia elétrica ao longo do ano.</p>
+
+                <div class="campo-unico">
+                    <label for="media_conta_mensal">VALOR MÉDIO MENSAL DA FATURA</label>
+                    <div class="wrapper-input">
+                        <input type="text" id="media_conta_mensal" name="media_conta_mensal" placeholder="Ex: 450,00" required>
+                        <span class="sufixo">R$/mês</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Custo de Disponibilidade (Taxa Mínima) -->
+            <div class="card-secao">
+                <h2 class="titulo-secao">3. Padrão de Ligação e Taxa Mínima</h2>
+                <p class="unidade-texto">Unidade: <strong>kWh/mês (Custo de Disponibilidade)</strong></p>
+                <p class="descricao-secao">Selecione o tipo de padrão de entrada da rede elétrica para descontar a taxa mínima obrigatória:</p>
+
+                <div class="campo-unico">
+                    <label for="taxa_minima">TIPO DE REDE ELÉTRICA</label>
+                    <div class="wrapper-input">
+                        <select id="taxa_minima" name="taxa_minima" class="select-rede" required>
+                            <option value="30">Monofásico (Taxa mínima de 30 kWh)</option>
+                            <option value="50">Bifásico (Taxa mínima de 50 kWh)</option>
+                            <option value="100" selected>Trifásico (Taxa mínima de 100 kWh)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botões de Ação e Navegação -->
+            <div class="container-botoes">
+                <button type="submit" class="btn-acao btn-calcular">Calcular Retorno Financeiro</button>
+                <a href="{{ url_for('inversor_pagina') }}" class="btn-acao btn-voltar">Voltar ao Inversor</a>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

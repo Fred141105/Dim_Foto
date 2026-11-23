@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Executivo do Projeto Solar</title>
+    <!-- Referência separada para o CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorio.css') }}">
+</head>
+<body>
+<div class="container-principal">
+
+    <!-- Cabeçalho do Relatório -->
+    <div class="card-secao">
+        <h2 class="titulo-secao">Relatório Técnico e Financeiro</h2>
+        <p class="descricao-secao">Resumo completo dos equipamentos dimensionados e viabilidade do investimento.</p>
+    </div>
+
+    <!-- Seção 1: Especificações dos Módulos Fotovoltaicos -->
+    <div class="card-secao">
+        <h2 class="titulo-secao" style="font-size: 1.2rem; color: #38bdf8;">1. Módulos Fotovoltaicos</h2>
+        
+        <div class="bloco-resultados-duplos" style="margin-top: 15px;">
+            <div class="item-resultado" style="flex: 1 1 100%;">
+                <span class="rotulo-secundario">Modelo Selecionado do Painel</span>
+                <span class="valor-secundario blue" style="font-size: 1.1rem;">{{ nome_painel }}</span>
+            </div>
+        </div>
+
+        <div class="bloco-resultados-duplos" style="margin-top: 15px;">
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Quantidade de Módulos</span>
+                <span class="valor-secundario blue">{{ n_mod }} Unidades</span>
+            </div>
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Potência Instalada</span>
+                <span class="valor-secundario orange">{{ potencia_pico }} Wp</span>
+            </div>
+        </div>
+
+        <div class="bloco-resultados-duplos" style="margin-top: 15px;">
+            <div class="item-resultado" style="flex: 1 1 100%;">
+                <span class="rotulo-secundario">Custo Total dos Paineis</span>
+                <span class="valor-secundario orange">R$ {{ custo_total_paineis }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 2: Especificações do Inversor -->
+    <div class="card-secao">
+        <h2 class="titulo-secao" style="font-size: 1.2rem; color: #38bdf8;">2. Inversor Fotovoltaico</h2>
+        
+        <div class="bloco-resultados-duplos" style="margin-top: 15px;">
+            <div class="item-resultado" style="flex: 1 1 100%;">
+                <span class="rotulo-secundario">Modelo Selecionado do Inversor</span>
+                <span class="valor-secundario blue" style="font-size: 1.1rem;">{{ modelo_inversor }}</span>
+            </div>
+        </div>
+
+        <div class="bloco-resultados-duplos" style="margin-top: 15px;">
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Potência CA</span>
+                <span class="valor-secundario orange">{{ potencia_inversor }} kW</span>
+            </div>
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Preço do Inversor</span>
+                <span class="valor-secundario blue">R$ {{ preco_inversor }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 3: Análise Financeira e Comparativo -->
+    <div class="card-secao">
+        <h2 class="titulo-secao" style="font-size: 1.2rem; color: #ff9800;">3. Viabilidade Financeira</h2>
+        
+        <div class="bloco-resultados-duplos" style="margin-top: 15px;">
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Investimento Total (CAPEX)</span>
+                <span class="valor-secundario blue">R$ {{ capex_total }}</span>
+            </div>
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Payback Simples</span>
+                <span class="valor-secundario orange">{{ payback_simples }} Anos</span>
+            </div>
+        </div>
+
+        <div class="bloco-resultados-duplos" style="margin-top: 15px;">
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Conta Antiga (Média)</span>
+                <span class="valor-secundario orange">R$ {{ fatura_antiga }}</span>
+            </div>
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Nova Conta (Pós-Solar)</span>
+                <span class="valor-secundario blue">R$ {{ nova_conta }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 4: Gráfico de Retorno Acumulado (30 Anos) -->
+    <div class="card-secao">
+        <h2 class="titulo-secao" style="font-size: 1.2rem; color: #38bdf8;">4. Projeção de Retorno Acumulado (30 Anos)</h2>
+        <p class="descricao-secao">Evolução do saldo financeiro considerando reajuste tarifário médio de 5% a.a.</p>
+
+        <div class="container-grafico">
+            <canvas id="graficoROI"></canvas>
+        </div>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="container-botoes">
+        <button onclick="window.print()" class="btn-acao btn-pdf">Baixar Relatório em PDF</button>
+        <a href="{{ url_for('home') }}" class="btn-acao btn-inicio">Tela Inicial</a>
+    </div>
+
+</div>
+
+<!-- Script Chart.js para renderizar o gráfico no relatório -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('graficoROI').getContext('2d');
+    const labels = {{ anos_grafico | tojson }};
+    const dataValues = {{ fluxo_acumulado | tojson }};
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Saldo Acumulado (R$)',
+                data: dataValues,
+                borderColor: '#38bdf8',
+                backgroundColor: 'rgba(56, 189, 248, 0.15)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.3,
+                pointRadius: 3,
+                pointBackgroundColor: dataValues.map(v => v < 0 ? '#ff9800' : '#38bdf8')
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: { color: '#e2e8f0', font: { size: 13 } }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let valor = context.parsed.y;
+                            return 'Saldo: R$ ' + valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#94a3b8', maxTicksLimit: 11 },
+                    grid: { color: 'rgba(45, 55, 72, 0.4)' }
+                },
+                y: {
+                    ticks: {
+                        color: '#94a3b8',
+                        callback: function(value) {
+                            return 'R$ ' + value.toLocaleString('pt-BR');
+                        }
+                    },
+                    grid: {
+                        color: function(context) {
+                            if (context.tick.value === 0) return '#ff9800';
+                            return 'rgba(45, 55, 72, 0.4)';
+                        },
+                        lineWidth: function(context) {
+                            return context.tick.value === 0 ? 2 : 1;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

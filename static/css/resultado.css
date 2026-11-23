@@ -1,0 +1,298 @@
+/* Estrutura Base e Fundo */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    background-color: #071526;
+    background-image:
+        linear-gradient(180deg, rgba(6, 20, 38, 0.35) 0%, rgba(5, 16, 31, 0.55) 100%),
+        url("/static/css/imagens/fundo.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    padding: 36px 20px 52px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Detalhes geométricos discretos nas bordas, iguais aos da capa */
+body::before {
+    content: "";
+    position: fixed;
+    top: -40px;
+    left: -40px;
+    width: 170px;
+    height: 170px;
+    border-right: 3px solid rgba(255, 167, 38, 0.75);
+    border-bottom: 3px solid rgba(255, 167, 38, 0.75);
+    border-bottom-right-radius: 36px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    right: -60px;
+    top: -40px;
+    width: 260px;
+    height: 360px;
+    background: linear-gradient(
+        135deg,
+        rgba(13, 71, 161, 0.32) 0%,
+        rgba(13, 71, 161, 0.32) 22%,
+        transparent 22%,
+        transparent 32%,
+        rgba(25, 118, 210, 0.24) 32%,
+        rgba(25, 118, 210, 0.24) 44%,
+        transparent 44%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.container-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.card-secao {
+    background: linear-gradient(
+        160deg,
+        rgba(11, 34, 62, 0.88) 0%,
+        rgba(7, 22, 42, 0.92) 100%
+    );
+    border: 1.5px solid rgba(33, 150, 243, 0.55);
+    border-radius: 24px;
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.65),
+        0 0 25px rgba(21, 101, 192, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+.titulo-secao {
+    color: #ff9800;
+    font-size: 1.55rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid rgba(255, 152, 0, 0.35);
+}
+
+.unidade-texto {
+    color: #a0aec0;
+    margin: 4px 0;
+    font-size: 0.95rem;
+}
+
+.unidade-texto strong {
+    color: #cbd5e1;
+}
+
+.descricao-secao {
+    color: #e2e8f0;
+    font-size: 1rem;
+    margin-bottom: 18px;
+}
+
+/* Estilos de Destaque para os Resultados */
+.bloco-resultado-destaque {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: rgba(13, 27, 46, 0.85);
+    border: 1px solid rgba(100, 181, 246, 0.28);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.valor-destaque {
+    font-size: 2.8rem;
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.rotulo-destaque {
+    font-size: 1rem;
+    color: #a0aec0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+/* Resultados Duplos (Bloco 4) */
+.bloco-resultados-duplos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.item-resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(13, 27, 46, 0.85);
+    border: 1px solid rgba(100, 181, 246, 0.28);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.rotulo-secundario {
+    font-size: 0.95rem;
+    color: #e2e8f0;
+    margin-bottom: 8px;
+}
+
+.valor-secundario {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.valor-secundario.blue {
+    color: #38bdf8;
+}
+
+.valor-secundario.orange {
+    color: #ff9800;
+}
+
+/* Botão de Retorno */
+.btn-voltar {
+    background: linear-gradient(180deg, #1e88e5 0%, #0284c7 100%);
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+    transition: background-color 0.2s ease, transform 0.1s ease, filter 0.2s ease;
+    display: block;
+    max-width: 320px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-voltar:hover {
+    background-color: #0369a1;
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+/* Container de Botões de Ação */
+.container-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 10px;
+}
+
+/* Estilo Base para os Botões de Ação */
+.btn-acao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, filter 0.2s ease;
+    box-sizing: border-box;
+    flex: 1 1 260px;
+    max-width: 290px;
+}
+
+/* Botão 1: Inversor (Tom Azul Corporativo) */
+.btn-inversor {
+    background-color: #1e3a8a;
+    color: #ffffff;
+    border: 1px solid #3b82f6;
+    box-shadow: 0 6px 18px rgba(30, 58, 138, 0.35);
+}
+
+.btn-inversor:hover {
+    background-color: #1d4ed8;
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+/* Botão 2: Retorno Financeiro (Tom Verde Corporativo) */
+.btn-financeiro {
+    background-color: #065f46;
+    color: #ffffff;
+    border: 1px solid #10b981;
+    box-shadow: 0 6px 18px rgba(6, 95, 70, 0.35);
+}
+
+.btn-financeiro:hover {
+    background-color: #047857;
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+/* Botão 3: Novo Dimensionamento */
+.btn-acao.btn-voltar {
+    background: linear-gradient(180deg, #1e88e5 0%, #0284c7 100%);
+    color: #ffffff;
+    border: 1px solid rgba(100, 181, 246, 0.45);
+    max-width: 290px;
+}
+
+.btn-acao.btn-voltar:hover {
+    background-color: #0369a1;
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 12px 36px;
+    }
+
+    .card-secao {
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .titulo-secao {
+        font-size: 1.32rem;
+    }
+
+    .valor-destaque {
+        font-size: 2.2rem;
+    }
+}

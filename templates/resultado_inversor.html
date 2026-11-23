@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Dimensionamento do Inversor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resultado_inversor.css') }}">
+</head>
+<body>
+    <div class="container-principal">
+
+        <!-- Bloco 1: Inversor Comercial Recomendado -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">Inversor Comercial Recomendado</h2>
+            <p class="unidade-texto">Tecnologia e Potência CA</p>
+            <p class="descricao-secao">Modelo ideal selecionado com base na potência do gerador e fator CC/CA.</p>
+
+            <div class="bloco-resultado-destaque">
+                <span class="valor-destaque">{{ inversor_sugerido }}</span>
+                <span class="rotulo-destaque">Inversor Selecionado</span>
+            </div>
+        </div>
+
+        <!-- Bloco 2: Detalhes Técnicos do Dimensionamento -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">Parâmetros do Dimensionamento</h2>
+            <p class="unidade-texto">Resumo Técnico</p>
+            <p class="descricao-secao">Valores calculados considerando o painel escolhido e o fator de sobredimensionamento ({{ fator_cc }}).</p>
+
+            <div class="bloco-resultados-duplos">
+                <div class="item-resultado">
+                    <span class="rotulo-secundario">Potência CC Total</span>
+                    <span class="valor-secundario blue">{{ potencia_cc }} Wp</span>
+                </div>
+                <div class="item-resultado">
+                    <span class="rotulo-secundario">Potência CA Calculada</span>
+                    <span class="valor-secundario orange">{{ potencia_calculada }} W</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloco 3: Modelos Comerciais Ideais Sugeridos -->
+        <div class="card-secao">
+            <h2 class="titulo-secao">Modelos Comerciais Sugeridos</h2>
+            <p class="unidade-texto">Opções Compatíveis com o Projeto</p>
+            <p class="descricao-secao">Equipamentos comerciais mais próximos do ideal para {{ potencia_cc }} Wp em CC e {{ potencia_calculada }} W em CA.</p>
+
+            <div class="lista-modelos-inversor">
+                {% for inv in modelos_recomendados %}
+                <div class="item-modelo-inversor">
+                    <div class="cabecalho-modelo">
+                        <span class="nome-modelo">{{ inv.modelo }}</span>
+                        <span class="badge-ideal">Ideal / Mais Próximo</span>
+                    </div>
+                    <div class="specs-modelo">
+                        <span><strong>Potência CA:</strong> {{ (inv.potencia_ca / 1000) }} kW</span>
+                        <span><strong>Máx. Entrada CC:</strong> {{ inv.max_cc }} Wp</span>
+                        <span><strong>MPPTs:</strong> {{ inv.mppts }}</span>
+                        <span><strong>Tensão:</strong> {{ inv.tensao }}</span>
+                        <span><strong>Eficiência:</strong> {{ inv.eficiencia }}</span>
+                        <span><strong>Preço Est.:</strong> R$ {{ "%.2f"|format(inv.preco)|replace('.', ',') }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Grupo de Botões de Navegação -->
+        <div class="container-botoes">
+            <a href="{{ url_for('inversor_pagina') }}" class="btn-acao btn-inversor">Refazer Inversor</a>
+            <!-- Alterado para chamar a página do formulário financeiro (financia.html) -->
+            <a href="{{ url_for('financia_pagina') }}" class="btn-acao btn-financeiro">Calcular Retorno Financeiro</a>
+            <a href="{{ url_for('calcular') }}" class="btn-acao btn-voltar">Voltar aos Resultados</a>
+        </div>
+
+    </div>
+</body>
+</html>

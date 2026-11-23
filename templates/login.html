@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Metric - Dimensionamento Fotovoltaico</title>
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+<body class="login-page">
+    <div class="login-overlay">
+        <div class="login-card">
+            <form action="/login" id="login" method="post" class="login-form">
+                <div class="brand-header">
+                    <div class="brand-logo" aria-hidden="true">
+                        <svg viewBox="0 0 96 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Sol -->
+                            <circle cx="48" cy="18" r="9" fill="#FF9800"/>
+                            <path d="M48 4V6M48 30V32M34 18H36M60 18H62M38.1 8.1L39.5 9.5M56.5 26.5L57.9 27.9M57.9 8.1L56.5 9.5M39.5 26.5L38.1 27.9" stroke="#FF9800" stroke-width="2.5" stroke-linecap="round"/>
+                            <!-- Painel solar -->
+                            <polygon points="22,36 74,36 86,66 10,66" fill="#1565C0" stroke="#42A5F5" stroke-width="2"/>
+                            <line x1="16" y1="51" x2="80" y2="51" stroke="#90CAF9" stroke-width="1.8"/>
+                            <line x1="35" y1="36" x2="29" y2="66" stroke="#90CAF9" stroke-width="1.8"/>
+                            <line x1="48" y1="36" x2="48" y2="66" stroke="#90CAF9" stroke-width="1.8"/>
+                            <line x1="61" y1="36" x2="67" y2="66" stroke="#90CAF9" stroke-width="1.8"/>
+                        </svg>
+                    </div>
+                    <div class="brand-divider"></div>
+                    <div class="brand-text">
+                        <h2 class="titulo-login"><span class="brand-solar">Solar</span> <span class="brand-metric">Metric</span></h2>
+                        <p class="brand-subtitle">Dimensionamento Fotovoltaico</p>
+                    </div>
+                </div>
+
+                <div class="brand-rule"></div>
+
+                <div class="campo-grupo">
+                    <label for="nome" class="campo-label">
+                        <svg class="campo-icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                        </svg>
+                        <span>NOME</span>
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" name="nome" id="nome" class="campo-input" required placeholder="Digite seu usuário">
+                    </div>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="senha" class="campo-label">
+                        <svg class="campo-icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                        </svg>
+                        <span>SENHA</span>
+                    </label>
+                    <div class="input-wrapper input-senha-wrapper">
+                        <input type="password" name="senha" id="senha" class="campo-input" required placeholder="Digite sua senha">
+                        <button type="button" class="toggle-senha" id="toggleSenha" aria-label="Mostrar ou ocultar senha">
+                            <svg id="iconeOlho" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" id="btn_login" class="btn-entrar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span class="btn-conteudo">
+                        <svg class="btn-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                            <polyline points="10 17 15 12 10 7"/>
+                            <line x1="15" y1="12" x2="3" y2="12"/>
+                        </svg>
+                        <span>ENTRAR</span>
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const inputSenha = document.getElementById("senha");
+            const btnToggle = document.getElementById("toggleSenha");
+            if (inputSenha && btnToggle) {
+                btnToggle.addEventListener("click", function () {
+                    const isPassword = inputSenha.type === "password";
+                    inputSenha.type = isPassword ? "text" : "password";
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

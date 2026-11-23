@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Análise Financeira</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resultado_financia.css') }}">
+</head>
+<body>
+<div class="container-principal">
+
+    <!-- Bloco 1: Indicadores Financeiros (CAPEX e Payback) -->
+    <div class="card-secao">
+        <h2 class="titulo-secao">Resultado do Retorno Financeiro (Payback)</h2>
+        <p class="descricao-secao">Resumo dos indicadores financeiros e tempo estimado de retorno do investimento.</p>
+
+        <div class="bloco-resultados-duplos">
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Investimento Total (CAPEX)</span>
+                <span class="valor-secundario blue">R$ {{ investimento }}</span>
+            </div>
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Payback Simples Estimado</span>
+                <span class="valor-secundario orange">{{ payback_simples }} Anos</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloco 2: Comparativo da Conta de Luz -->
+    <div class="card-secao">
+        <h2 class="titulo-secao">Comparativo da Conta de Energia</h2>
+        <p class="descricao-secao">Média mensal paga anteriormente versus o novo valor estimado após a instalação.</p>
+
+        <div class="bloco-resultados-duplos">
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Conta Antiga (Média)</span>
+                <span class="valor-secundario orange">R$ {{ fatura_antiga }}</span>
+            </div>
+            <div class="item-resultado">
+                <span class="rotulo-secundario">Nova Conta (Pós-Solar)</span>
+                <span class="valor-secundario blue">R$ {{ nova_conta }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloco 3: Gráfico de Fluxo de Caixa Acumulado (30 Anos) -->
+    <div class="card-secao">
+        <h2 class="titulo-secao">Projeção de Retorno Acumulado (30 Anos)</h2>
+        <p class="descricao-secao">Evolução do saldo financeiro considerando reajuste tarifário médio de 5% a.a.</p>
+
+        <div class="container-grafico">
+            <canvas id="graficoROI"></canvas>
+        </div>
+    </div>
+
+    <!-- Grupo de Botões de Navegação -->
+    <div class="container-botoes">
+        <a href="{{ url_for('financia_pagina') }}" class="btn-acao btn-voltar">Refazer Análise</a>
+        <a href="{{ url_for('relatorio_projeto') }}" class="btn-acao btn-relatorio">Ver Relatório Completo</a>
+        <a href="{{ url_for('home') }}" class="btn-acao btn-inicio">Tela Inicial</a>
+    </div>
+
+</div>
+
+<!-- Script Chart.js para renderizar o gráfico de 30 anos -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('graficoROI').getContext('2d');
+    const labels = {{ anos_grafico | tojson }};
+    const dataValues = {{ fluxo_acumulado | tojson }};
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Saldo Acumulado (R$)',
+                data: dataValues,
+                borderColor: '#38bdf8',
+                backgroundColor: 'rgba(56, 189, 248, 0.15)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.3,
+                pointRadius: 3,
+                pointBackgroundColor: dataValues.map(v => v < 0 ? '#ff9800' : '#38bdf8')
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: { color: '#e2e8f0', font: { size: 13 } }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let valor = context.parsed.y;
+                            return 'Saldo: R$ ' + valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#94a3b8', maxTicksLimit: 11 },
+                    grid: { color: 'rgba(45, 55, 72, 0.4)' }
+                },
+                y: {
+                    ticks: {
+                        color: '#94a3b8',
+                        callback: function(value) {
+                            return 'R$ ' + value.toLocaleString('pt-BR');
+                        }
+                    },
+                    grid: {
+                        color: function(context) {
+                            if (context.tick.value === 0) return '#ff9800';
+                            return 'rgba(45, 55, 72, 0.4)';
+                        },
+                        lineWidth: function(context) {
+                            return context.tick.value === 0 ? 2 : 1;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

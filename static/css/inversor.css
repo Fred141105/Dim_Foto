@@ -1,0 +1,269 @@
+/* Estrutura Base e Fundo */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    background-color: #071526;
+    background-image:
+        linear-gradient(180deg, rgba(6, 20, 38, 0.35) 0%, rgba(5, 16, 31, 0.55) 100%),
+        url("/static/css/imagens/fundo.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    padding: 36px 20px 52px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Detalhes geométricos discretos nas bordas, iguais aos da capa */
+body::before {
+    content: "";
+    position: fixed;
+    top: -40px;
+    left: -40px;
+    width: 170px;
+    height: 170px;
+    border-right: 3px solid rgba(255, 167, 38, 0.75);
+    border-bottom: 3px solid rgba(255, 167, 38, 0.75);
+    border-bottom-right-radius: 36px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    right: -60px;
+    top: -40px;
+    width: 260px;
+    height: 360px;
+    background: linear-gradient(
+        135deg,
+        rgba(13, 71, 161, 0.32) 0%,
+        rgba(13, 71, 161, 0.32) 22%,
+        transparent 22%,
+        transparent 32%,
+        rgba(25, 118, 210, 0.24) 32%,
+        rgba(25, 118, 210, 0.24) 44%,
+        transparent 44%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+.container-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.card-secao {
+    background: linear-gradient(
+        160deg,
+        rgba(11, 34, 62, 0.88) 0%,
+        rgba(7, 22, 42, 0.92) 100%
+    );
+    border: 1.5px solid rgba(33, 150, 243, 0.55);
+    border-radius: 24px;
+    padding: 32px 30px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.65),
+        0 0 25px rgba(21, 101, 192, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+.titulo-secao {
+    color: #ff9800;
+    font-size: 1.55rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid rgba(255, 152, 0, 0.35);
+}
+
+.descricao-secao {
+    color: #e2e8f0;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.45;
+}
+
+.formulario-inversor {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+}
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    background-color: rgba(13, 27, 46, 0.85);
+    border: 1px solid rgba(100, 181, 246, 0.28);
+    border-radius: 12px;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.campo-grupo:focus-within {
+    border-color: #29b6f6;
+    background-color: rgba(15, 33, 56, 0.95);
+    box-shadow: 0 0 0 3px rgba(41, 182, 246, 0.2);
+}
+
+.campo-grupo label {
+    color: #ff9800;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.wrapper-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.wrapper-input input,
+.select-personalizado {
+    width: 100%;
+    background-color: rgba(9, 22, 42, 0.75);
+    border: 1px solid rgba(100, 181, 246, 0.25);
+    border-bottom: 2px solid #38bdf8;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 10px 46px 10px 12px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.select-personalizado {
+    padding: 10px 12px;
+    cursor: pointer;
+}
+
+.select-personalizado option {
+    background-color: #091e38;
+    color: #ffffff;
+}
+
+.wrapper-input input:focus,
+.select-personalizado:focus {
+    border-bottom-color: #ff9800;
+    border-color: rgba(41, 182, 246, 0.55);
+}
+
+.wrapper-input .sufixo {
+    position: absolute;
+    right: 12px;
+    color: #90a4ae;
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+.dica-campo {
+    color: #94a3b8;
+    font-size: 0.82rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+/* Botões de Ação */
+.container-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 10px;
+}
+
+.btn-acao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, filter 0.2s ease;
+    box-sizing: border-box;
+    flex: 1 1 200px;
+}
+
+.btn-calcular {
+    background-color: #1e3a8a;
+    color: #ffffff;
+    border: 1px solid #3b82f6;
+    box-shadow: 0 6px 18px rgba(30, 58, 138, 0.35);
+}
+
+.btn-calcular:hover {
+    background-color: #1d4ed8;
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+.btn-voltar {
+    background: linear-gradient(180deg, #1e88e5 0%, #0284c7 100%);
+    color: #ffffff;
+    border: 1px solid rgba(100, 181, 246, 0.45);
+    box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+}
+
+.btn-voltar:hover {
+    background-color: #0369a1;
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 12px 36px;
+    }
+
+    .card-secao {
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .titulo-secao {
+        font-size: 1.32rem;
+    }
+}
